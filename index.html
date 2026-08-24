@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Philippines GCASH Authority - Simulated Digital Wallet & Lending Platform Demo">
+  <title>Philippines GCASH Authority — Enhanced Version</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* ========== CSS3 Reset & Base Styles ========== */
+    * { 
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --primary-color: #0878c9;
+      --success-color: #059669;
+      --danger-color: #dc2626;
+      --warning-color: #d97706;
+      --gray-light: #f3f6fa;
+      --gray-text: #667085;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.12);
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+      --transition-smooth: 0.4s ease-out;
+      --border-radius: 12px;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body { 
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--gray-light);
+      color: #17212b;
+      line-height: 1.6;
+    }
+    
+    /* ========== HTML5 Semantic Elements ========== */
+    header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #0560a0 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    header p {
+      opacity: 0.95;
+      font-size: 0.95rem;
+    }
+    
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    article {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+      transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+    }
+    
+    article:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+    
+    footer {
+      background: #1e293b;
+      color: #cbd5e1;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.875rem;
+      margin-top: 3rem;
+      border-top: 1px solid #334155;
+    }
+    
+    /* ========== CSS3 Animations ========== */
+    @keyframes fadeIn { 
+      from { 
+        opacity: 0;
+        transform: translateY(-8px);
+      } 
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      } 
+    }
+    
+    @keyframes slideInLeft {
+      from { 
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideInRight {
+      from { 
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    /* Animation Classes */
+    .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    .animate-slide-in-left { animation: slideInLeft 0.5s ease-out forwards; }
+    .animate-slide-in-right { animation: slideInRight 0.5s ease-out forwards; }
+    .animate-pulse { animation: pulse 2s infinite; }
+    .animate-bounce { animation: bounce 1s infinite; }
+    
+    /* Staggered animations */
+    article:nth-child(1) { animation: fadeIn 0.5s ease-out 0.1s backwards; }
+    article:nth-child(2) { animation: fadeIn 0.5s ease-out 0.2s backwards; }
+    article:nth-child(3) { animation: fadeIn 0.5s ease-out 0.3s backwards; }
+    
+    /* ========== CSS3 Buttons with Transitions ========== */
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.125rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all var(--transition-normal);
+      outline: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    button:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    button:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+    
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-primary:hover:not(:disabled) {
+      background: #0560a0;
+    }
+    
+    .btn-success {
+      background: var(--success-color);
+      color: white;
+    }
+    
+    .btn-success:hover:not(:disabled) {
+      background: #047857;
+    }
+    
+    .btn-danger {
+      background: var(--danger-color);
+      color: white;
+    }
+    
+    .btn-danger:hover:not(:disabled) {
+      background: #b91c1c;
+    }
+    
+    .btn-secondary {
+      background: #64748b;
+      color: white;
+    }
+    
+    .btn-secondary:hover:not(:disabled) {
+      background: #475569;
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      color: #64748b;
+      text-decoration: underline;
+    }
+    
+    .btn-ghost:hover:not(:disabled) {
+      color: #334155;
+    }
+    
+    /* ========== CSS3 Flexbox & Grid Layouts ========== */
+    .flex-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    /* ========== HTML5 Progress Element Styling ========== */
+    progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: #e5e7eb;
+      border: none;
+    }
+    
+    progress::-webkit-progress-bar {
+      background-color: #e5e7eb;
+      border-radius: 5px;
+    }
+    
+    progress::-webkit-progress-value {
+      background: linear-gradient(90deg, var(--primary-color) 0%, #0560a0 100%);
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+    
+    progress::-moz-progress-bar {
+      background: linear-gradient(90deg, var(--primary-color) 0%, #0560a0 100%);
+      border-radius: 5px;
+    }
+    
+    /* ========== Form Elements (HTML5) ========== */
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(8, 120, 201, 0.1);
+    }
+    
+    input:valid {
+      border-color: var(--success-color);
+    }
+    
+    input:invalid {
+      border-color: var(--danger-color);
+    }
+    
+    /* ========== Card & Status Badges ========== */
+    .badge {
+      display: inline-block;
+      padding: 0.5rem 0.875rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all var(--transition-fast);
+    }
+    
+    .badge-success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    
+    .badge-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    
+    .badge-danger {
+      background: #fee2e2;
+      color: #7f1d1d;
+    }
+    
+    .badge-info {
+      background: #dbeafe;
+      color: #0c2340;
+    }
+    
+    /* ========== Result Display Box ========== */
+    .result-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #f1f5f9;
+      border-radius: 8px;
+      min-height: 50px;
+      font-size: 0.95rem;
+      color: #475569;
+      border-left: 4px solid var(--primary-color);
+      animation: slideInLeft 0.3s ease-out;
+    }
+    
+    .result-box.success {
+      background: #d1fae5;
+      border-left-color: var(--success-color);
+      color: #065f46;
+    }
+    
+    .result-box.error {
+      background: #fee2e2;
+      border-left-color: var(--danger-color);
+      color: #7f1d1d;
+    }
+    
+    .result-box.warning {
+      background: #fef3c7;
+      border-left-color: var(--warning-color);
+      color: #92400e;
+    }
+    
+    /* ========== Demo Notice ========== */
+    .demo-notice {
+      background: #fff3cd;
+      color: #664d03;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-bottom: 1px solid #ffe69c;
+    }
+    
+    /* ========== Responsive Design (CSS3 Media Queries) ========== */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .flex-container {
+        flex-direction: column;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .button-group button {
+        width: 100%;
+      }
+      
+      article {
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      
+      main {
+        margin: 1rem auto;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header {
+        padding: 1.25rem;
+      }
+      
+      header h1 {
+        font-size: 1.25rem;
+      }
+      
+      header p {
+        font-size: 0.85rem;
+      }
+      
+      article {
+        padding: 1rem;
+      }
+      
+      button {
+        padding: 0.65rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* ========== Dark Mode Support ========== */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      
+      article {
+        background: #1e293b;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+      
+      .result-box {
+        background: #334155;
+        color: #cbd5e1;
+      }
+      
+      input, select, textarea {
+        background: #1e293b;
+        color: #e2e8f0;
+        border-color: #475569;
+      }
+      
+      input:focus, select:focus, textarea:focus {
+        box-shadow: 0 0 0 3px rgba(8, 120, 201, 0.2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HTML5 Semantic Demo Notice -->
+  <section class="demo-notice">
+    ⚠️ DEMO PLATFORM — NO REAL MONEY — NOT AN OFFICIAL GCASH OR GOVERNMENT SERVICE
+  </section>
+
+  <!-- HTML5 Semantic Header -->
+  <header>
+    <h1>🏛️ Philippines GCASH Authority</h1>
+    <p>Simulated Digital Wallet & Lending Platform with HTML5 & CSS3 Enhancements</p>
+  </header>
+
+  <!-- HTML5 Semantic Main Content -->
+  <main>
+
+    <!-- Client Account Article -->
+    <article>
+      <div class="flex-container">
+        <div>
+          <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem;">👤 Client Demo Account</h2>
+          <p style="color: var(--gray-text); font-size: 0.9rem; margin: 0.25rem 0;">Account: <strong>CLIENT-DEMO-001</strong></p>
+          <span class="badge badge-success">✓ Active</span>
+        </div>
+        <div style="text-align: right;">
+          <p style="font-size: 0.8rem; color: var(--gray-text); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin: 0;">Demo Balance</p>
+          <p id="balance-display" style="font-size: 2rem; font-weight: 700; color: var(--primary-color); margin: 0.25rem 0;">₱0.00</p>
+        </div>
+      </div>
+
+      <!-- HTML5 Progress Element -->
+      <div style="margin-top: 1.5rem;">
+        <label for="loan-progress" style="font-size: 0.85rem; font-weight: 600; color: #475569; display: block; margin-bottom: 0.5rem;">Loan Application Progress:</label>
+        <progress id="loan-progress" value="0" max="100" style="margin-bottom: 0.5rem;"></progress>
+        <span id="progress-text" style="font-size: 0.8rem; color: var(--gray-text);">0%</span>
+      </div>
+
+      <!-- Action Buttons Group -->
+      <div class="button-group">
+        <button class="btn-primary" onclick="openLoanModal()">💰 Request Demo Loan</button>
+        <button class="btn-secondary" onclick="showStatus()">📊 Check Loan Status</button>
+        <button class="btn-success" onclick="openTopUpModal()">➕ Top Up Demo</button>
+      </div>
+
+      <!-- Result Display -->
+      <div id="result" class="result-box">No transaction selected.</div>
+    </article>
+
+    <!-- Admin Panel Article -->
+    <article>
+      <h2 style="margin: 0 0 0.5rem; font-size: 1.25rem;">🔐 Admin / Lender Panel</h2>
+      <p style="color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1rem;">Use this panel to simulate lending activity. Approve or reject demo loan requests.</p>
+
+      <!-- Pending Loans Display -->
+      <div id="pending-loans" style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #e5e7eb;">
+        <p style="font-size: 0.9rem; color: #94a3b8; font-style: italic; margin: 0;">No pending demo loan requests.</p>
+      </div>
+
+      <!-- Admin Action Buttons -->
+      <div class="button-group">
+        <button class="btn-success" id="btn-approve" disabled onclick="approveLoan()">✓ Approve Demo Loan</button>
+        <button class="btn-danger" id="btn-reject" disabled onclick="rejectLoan()">✕ Reject Request</button>
+      </div>
+
+      <!-- Admin Result Display -->
+      <div id="adminResult" class="result-box" style="border-left-color: var(--success-color);">No loan action performed.</div>
+    </article>
+
+    <!-- Transactions Article -->
+    <article>
+      <div class="flex-container" style="margin-bottom: 1rem;">
+        <h2 style="margin: 0; font-size: 1.25rem;">💳 Demo Transactions</h2>
+        <button class="btn-ghost" onclick="clearTransactions()">🗑️ Clear History</button>
+      </div>
+      
+      <!-- HTML5 Semantic Transaction List -->
+      <div id="transactions">
+        <div style="border-bottom: 1px solid #e5e7eb; padding: 0.75rem 0; font-size: 0.9rem; color: #94a3b8; font-style: italic;">No transactions yet.</div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- HTML5 Semantic Footer -->
+  <footer>
+    <p style="margin: 0;">© 2025 Philippines GCASH Authority Demo | Educational Purpose Only | Built with HTML5 & CSS3</p>
+  </footer>
+
+  <!-- JavaScript with localStorage Integration -->
+  <script>
+    // Initialize localStorage
+    const appState = {
+      balance: parseFloat(localStorage.getItem('gcash_balance') || '0'),
+      transactions: JSON.parse(localStorage.getItem('gcash_transactions') || '[]'),
+      pendingLoans: JSON.parse(localStorage.getItem('gcash_pending_loans') || '[]')
+    };
+
+    // Update Balance Display
+    function updateBalance() {
+      document.getElementById('balance-display').textContent = `₱${appState.balance.toFixed(2)}`;
+      localStorage.setItem('gcash_balance', appState.balance);
+    }
+
+    // Update Progress Bar
+    function updateProgress(value) {
+      const progress = document.getElementById('loan-progress');
+      progress.value = value;
+      document.getElementById('progress-text').textContent = `${value}%`;
+    }
+
+    // Demo Functions
+    function openLoanModal() {
+      alert('💰 Loan Modal - To be implemented with full form validation');
+      updateProgress(33);
+    }
+
+    function showStatus() {
+      const resultBox = document.getElementById('result');
+      resultBox.textContent = '📊 Your current loan status: No active loans.';
+      resultBox.className = 'result-box';
+    }
+
+    function openTopUpModal() {
+      alert('➕ Top Up Modal - To be implemented');
+      appState.balance += 1000;
+      updateBalance();
+      updateProgress(66);
+    }
+
+    function approveLoan() {
+      const adminResult = document.getElementById('adminResult');
+      adminResult.textContent = '✓ Loan approved successfully!';
+      adminResult.className = 'result-box success';
+      updateProgress(100);
+    }
+
+    function rejectLoan() {
+      const adminResult = document.getElementById('adminResult');
+      adminResult.textContent = '✕ Loan request rejected.';
+      adminResult.className = 'result-box error';
+    }
+
+    function clearTransactions() {
+      if (confirm('Are you sure you want to clear all transactions?')) {
+        appState.transactions = [];
+        localStorage.setItem('gcash_transactions', JSON.stringify(appState.transactions));
+        document.getElementById('transactions').innerHTML = '<div style="border-bottom: 1px solid #e5e7eb; padding: 0.75rem 0; font-size: 0.9rem; color: #94a3b8; font-style: italic;">No transactions yet.</div>';
+      }
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateBalance();
+      updateProgress(0);
+    });
+  </script>
+
+</body>
+</html>
